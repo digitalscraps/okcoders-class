@@ -21,8 +21,23 @@
 // Print URL for accessing server
 //console.log('Server running at http://127.0.0.1:8000/')
 
-var circle = require('./circle');
+//var circle = require('./circle');
 
-var area = circle.area(24);
+//var area = circle.area(24);
 
-console.log('A circle with a radius of 24 has an area of ' + area);
+//console.log('A circle with a radius of 24 has an area of ' + area);
+
+var mongo = require('mongodb');
+var mc = mongo.MongoClient;
+
+var url = 'mongodb://localhost:27017/testing';
+
+mc.connect(url,function(err,db){
+
+    if(err){console.log("unable to access database on " + url); }
+    var posts = db.collection('posts');
+    posts.find({}).toArry(function(err, docs){
+        console.log(docs);
+        db.close();
+    });
+});

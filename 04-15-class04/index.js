@@ -2,36 +2,20 @@
 provide a restful api */
 
 
-
-
 var restify = require('restify');
+var hello = require('.routes');
 var server =  restify.createServer();
 var port = 8088;
-var fs = require('fs');
+
+// local folders and files
+var hello = require('./routes/hello');
+var client = require('./cient');
+
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/enron');
 var db = mongoose.connection;
-var Schema = mongoose.Schema;
 
-var schema = new Schema({
-    _id: Schema.Types.ObjectId,
-    sender: String,
-    recipients: [],
-    cc: [],
-    text: String,
-    mid: String,
-    fpath: String,
-    bcc: [],
-    to: [],
-    replyto: Schema.Types.Mixed,
-    ctype: String,
-    fname: String,
-    date: Date,
-    subject: String
-});
-// what collection is schema assocted with
-var Emails = mongoose.model('emails', schema);
 
 db.on('error', function(msg){
     console.log('Mongoose connection error %s', msg);
@@ -41,16 +25,6 @@ db.once('open', function(){
     console.log('Mongoose connection established');
 });
 
-//write function to GET emails
-function getEmails(req, res, next){
-    Emails.find().limit(10).exec(function(err,data){
-        if(err){res.send('Error;');}
-        else {
-            res.json(data);
-        }
-    });
-    return next();
-}
 
 // client
 server.get('/', function(req, res, next){
@@ -72,8 +46,8 @@ server.get('/', function(req, res, next){
 });
 
 //server responses
-server.get('/emails',getEmails);
-
+server.get('/emails',emails.get);
+server.get
 server.get('/', function(req, res, next){
     res.send("Hello World");
     next();
