@@ -34,3 +34,20 @@ exports.create = function(req, res, next) {
         }
         });
 }
+exports.read=function(req, res, next){
+    Auth.findOne(username: user, is_active: true).exec(function(err,data){
+        if(!data){
+        {res.send(400,"No User account associated with username")
+        return next();
+        }
+
+        bcrypt.compare(pass,data.password,function(err, status){
+        if(status ===false){
+            res.send(400, {status: "failed", reason: "Invalid Password"});
+            return next();
+        }
+        res.json(200,{status:"success"});
+        return next();
+        })
+    })
+}
