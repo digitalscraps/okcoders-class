@@ -1,0 +1,2 @@
+db/WiredTiger db/WiredTiger.lock db/WiredTiger.turtle db/WiredTiger.wt db/WiredTigerLAS.wt db/_mdb_catalog.wt db/collection-0-4075386639684921973.wt db/collection-2-4075386639684921973.wt db/collection-5-4075386639684921973.wt db/diagnostic.data db/index-1-4075386639684921973.wt db/index-3-4075386639684921973.wt db/index-4-4075386639684921973.wt db/index-6-4075386639684921973.wt db/journal db/mongod.lock db/sizeStorer.wt db/storage.bson
+node_modules
