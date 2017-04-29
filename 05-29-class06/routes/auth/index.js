@@ -1,20 +1,36 @@
 var Auth = require('../../modules/auth');
+var bycrypt =require('bcrypt');
+const saltRounds =2;
 
 exports.create = function(req, res, next) {
     var auth = new Auth();
-    auth.username = req.body.username;
-    auth.password = req.body.password;
-    console.log(req.body);
-    auth.date = new Date();
-    auth.is_active =true;
+    var user = req.body.username;
+    var pass = req.body.password;
 
-    auth.save(function(err,data){
+    if(!user || !pass){
+        res.send(404, "Username or password missing");
+    }
+
+    bcrypt.hash(pass, saltRounds, function(err,hash){
         if(err){
-            console.log('Error Error Error did not save to db: ' + err);
-            res.send(404, "Error with db");
+            console.log(err);
+            console.log(err);
+            res.send(404);
         } else {
-            res.json(201, {status: "success"});
+            auth.username = user;
+            auth.password = hash;
+            auth.date = new Date();
+            auth.is_active =true;
+
+        auth.save(function(err,data){
+            if(err){
+                console.log('Error Error Error did not save to db: ' + err);
+                res.send(404, "Error with db");
+            } else {
+                res.json(201, {status: "success"});
+            }
+            });
+            return next();
         }
-        return next();
-    })
+        });
 }
