@@ -18,6 +18,7 @@ db.once('open', function(){
 });
 
 server.post('/user/add/', auth.create);
+server.post('/user/login', auth.read);
 server.get('/',restify.serveStatic({
     directory: './client',
     default: "index.html"
