@@ -4,6 +4,7 @@
   "description": "week 06",
   "main": "index.js",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "mongoose": "^4.9.6",
     "restify": "^4.3.0"
   },
